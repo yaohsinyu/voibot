@@ -1,0 +1,11 @@
+*.pyc
+*~
+__pycache__
+.vscode
+*.cmd
+chatbot/*
+*.db
+*.pickle
+*.npy
+*.dat
+qabot/data/feature_index
