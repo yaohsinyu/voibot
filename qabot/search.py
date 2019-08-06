@@ -1,5 +1,3 @@
-import os
-import time
 import json
 import pickle
 import nmslib
@@ -38,17 +36,19 @@ def get_ques_vec(question):
     return qvector
 
 
-def get_answer(question):
+def match(question):
     qvector = get_ques_vec(question)
     ids, distance = index.knnQuery(qvector, k=3)
-    return answers[ids[0]]
+    return [questions[ids[0]], answers[ids[0]], distance[0]]   # 返回最匹配的问题、答案及距离
 
 
 if __name__ == "__main__":
     while True:
         question = input('Question: ')
-        qvector = get_ques_vec(question)
-        ids, distance = index.knnQuery(qvector, k=3)
-        print(questions[ids[0]], distance[0])
-        print(questions[ids[1]], distance[1])
-        print(questions[ids[2]], distance[2])
+        answer = match(question)
+        print(answer)
+        # qvector = get_ques_vec(question)
+        # ids, distance = index.knnQuery(qvector, k=3)
+        # print(questions[ids[0]], distance[0])
+        # print(questions[ids[1]], distance[1])
+        # print(questions[ids[2]], distance[2])

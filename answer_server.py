@@ -23,8 +23,12 @@ class AnswerbotHandle(tornado.web.RequestHandler):
         key = 'question'
         if key in data.keys() and isinstance(data[key], str):
             question = data[key]
-            answer = search.get_answer(question)
-            result = {'answer': answer}
+            match_qaf = search.match(question)
+            result = {
+                'question': match_qaf[0],
+                'answer': match_qaf[1],
+                'similarity': str(match_qaf[2])
+            }
             self.write(json.dumps(result, ensure_ascii=False))
         else:
             self.send_error(400)
